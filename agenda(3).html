@@ -306,25 +306,7 @@ function tagLabel(t){return{reunion:'Reunión',cuota:'Cuota',venc:'Vencimiento',
 
 function loadData(){
   try{const s=localStorage.getItem('agenda_app_v1');if(s){events=JSON.parse(s);return;}}catch(e){}
-  const t=today();const[y,m,d]=t.split('-').map(Number);
-  const f=(days,tipo,desc,monto,cn,ct,done)=>{
-    const dt=new Date(y,m-1,d+days);
-    const fd=`${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}-${String(dt.getDate()).padStart(2,'0')}`;
-    return{id:Date.now()+Math.random(),tipo,desc,fecha:fd,hora:'',monto:monto||'',cuotaN:cn||'',cuotaTotal:ct||'',done:!!done};
-  };
-  events=[
-    f(0,'reunion','Reunión de equipo','','','',false),
-    f(-1,'reunion','Reunión con cliente','','','',true),
-    f(-3,'reunion','Reunión mensual','','','',true),
-    f(2,'reunion','Reunión comercial','','','',false),
-    f(5,'reunion','Demo con proveedor','','','',false),
-    f(3,'cuota','Cuota préstamo banco','350000','3','12',false),
-    f(33,'cuota','Cuota préstamo banco','350000','4','12',false),
-    f(5,'cuota','Cuota TV/Internet','150000','2','6',false),
-    f(7,'venc','Vencimiento tarjeta','800000','','',false),
-    f(-2,'cuota','Cuota auto','600000','8','24',true),
-  ];
-  saveData();
+  events=[];
 }
 function saveData(){try{localStorage.setItem('agenda_app_v1',JSON.stringify(events));}catch(e){}}
 
